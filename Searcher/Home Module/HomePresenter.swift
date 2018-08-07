@@ -10,20 +10,26 @@ import Foundation
 
 class HomePresenter: HomeViewToPresenterProtocol {
     
-    var interactor: HomePresenterToInteractorProtocol?
-    weak var view: HomePresenterToViewProtocol?
+    private lazy var interactor: HomePresenterToInteractorProtocol = HomeInteractor(self)
+    private weak var delegate: HomePresenterToViewProtocol?
+    
+    init(_ delegate: HomePresenterToViewProtocol?) {
+        self.delegate = delegate
+    }
     
     func updateView() {
-        interactor?.fetchData()
+        interactor.fetchData()
     }
 }
 
 extension HomePresenter: HomeInteractorToPresenterProtocol {
+
     func didFetchData(data: HomeEntity) {
-        view?.showData(data: data)
+        delegate?.showData(data: data)
     }
     
-    func failFetchData() {
-        
+    func fail(message: String?) {
+        delegate?.fail(message: message ?? "")
     }
+    
 }

@@ -15,3 +15,7 @@ struct BaseAPI {
         return base + ""
     }
 }
+
+protocol Requestable: class {
+    func getRequest(urlRequest: URLRequest?, completion: @escaping (_ result: Data?, _ error: String?) -> Void)
+}

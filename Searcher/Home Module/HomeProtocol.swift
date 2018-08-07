@@ -14,6 +14,7 @@ protocol HomeViewToPresenterProtocol: class {
 
 protocol HomePresenterToViewProtocol: class {
     func showData(data: HomeEntity)
+    func fail(message: String)
 }
 
 protocol HomePresenterToInteractorProtocol: class {
@@ -22,5 +23,5 @@ protocol HomePresenterToInteractorProtocol: class {
 
 protocol HomeInteractorToPresenterProtocol: class {
     func didFetchData(data: HomeEntity)
-    func failFetchData()
+    func fail(message: String?)
 }

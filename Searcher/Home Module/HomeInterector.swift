@@ -10,23 +10,36 @@ import Foundation
 
 class HomeInteractor: HomePresenterToInteractorProtocol {
     
-    weak var interector: HomeInteractorToPresenterProtocol?
+    private weak var delegate: HomeInteractorToPresenterProtocol?
+    
+    init(_ delegate: HomeInteractorToPresenterProtocol?) {
+        self.delegate = delegate
+    }
     
     func fetchData() {
-        let url = URL(string: BaseAPI().something)
-        let request = URLRequest(url: url!)
-        URLSession.shared.dataTask(with: request) { data, response, error in
+    
+        var urlComponents = URLComponents(string: BaseAPI().something)
+        let firstParam = URLQueryItem(name: "", value: "")
+        let secondParam = URLQueryItem(name: "", value: "")
+        urlComponents?.queryItems = [firstParam, secondParam]
+        
+        guard let url = urlComponents?.url else {
+            delegate?.fail(message: ServiceError.unknown.message)
+            return
+        }
+        
+        Request().getRequest(urlRequest: URLRequest(url: url)) { response, error in
             
-            guard let dataFromService = data else {
+            if let erro = error {
+                self.delegate?.fail(message: erro)
                 return
             }
             
-            guard let sevice = try? JSONDecoder().decode(HomeEntity.self, from: dataFromService) else {
-                self.interector?.failFetchData()
+            guard let dataFromService = try? JSONDecoder().decode(HomeEntity.self, from: response!) else {
+                self.delegate?.fail(message: ServiceError.parserError.message)
                 return
             }
-            
-            self.interector?.didFetchData(data: sevice)
+            self.delegate?.didFetchData(data: dataFromService)
         }
     }
 }

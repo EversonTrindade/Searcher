@@ -10,7 +10,7 @@ import UIKit
 
 class HomeView: UIViewController {
 
-    lazy var presenter: HomeViewToPresenterProtocol = HomePresenter()
+    private lazy var presenter: HomeViewToPresenterProtocol = HomePresenter(self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,4 +25,7 @@ extension HomeView: HomePresenterToViewProtocol {
         
     }
     
+    func fail(message: String) {
+        present(Alert.showAlert(message: message), animated: true, completion: nil)
+    }
 }
