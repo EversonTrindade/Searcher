@@ -21,6 +21,14 @@ class HomeView: UIViewController {
 
 extension HomeView: HomePresenterToViewProtocol {
     
+    func showLoader() {
+        
+    }
+    
+    func hideLoader() {
+        
+    }
+
     func showData(data: HomeEntity) {
         
     }

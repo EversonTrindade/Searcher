@@ -11,6 +11,7 @@ import Foundation
 class HomePresenter: HomeViewToPresenterProtocol {
     
     private lazy var interactor: HomePresenterToInteractorProtocol = HomeInteractor(self)
+    var router: HomePresenterToRouterProtocol =  HomeRouter()
     private weak var delegate: HomePresenterToViewProtocol?
     
     init(_ delegate: HomePresenterToViewProtocol?) {
@@ -18,6 +19,7 @@ class HomePresenter: HomeViewToPresenterProtocol {
     }
     
     func updateView() {
+        delegate?.showLoader()
         interactor.fetchData()
     }
 }
@@ -25,10 +27,12 @@ class HomePresenter: HomeViewToPresenterProtocol {
 extension HomePresenter: HomeInteractorToPresenterProtocol {
 
     func didFetchData(data: HomeEntity) {
-        delegate?.showData(data: data)
+        delegate?.hideLoader()
+        delegate?.showData(data: data) //data volta pra view??????
     }
     
     func fail(message: String?) {
+        delegate?.hideLoader()
         delegate?.fail(message: message ?? "")
     }
     
