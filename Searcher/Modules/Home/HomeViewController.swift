@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeView: UIViewController {
+class HomeViewController: UIViewController {
 
     private lazy var presenter: HomeViewToPresenterProtocol = HomePresenter(self)
     
@@ -16,10 +16,9 @@ class HomeView: UIViewController {
         super.viewDidLoad()
         presenter.updateView()
     }
-
 }
 
-extension HomeView: HomePresenterToViewProtocol {
+extension HomeViewController: HomePresenterToViewProtocol {
     
     func showLoader() {
         

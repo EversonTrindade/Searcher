@@ -9,10 +9,14 @@
 import Foundation
 
 struct BaseAPI {
-    fileprivate let base = ""
     
-    var something: String {
-        return base + ""
+    let apiKey = "c26ef96c66f9f17cfb02fe58269fe57b"
+    let privKey = "161b1214631b0d5159f50f036b5d3d391279fd69"
+    
+    fileprivate let base = "https://gateway.marvel.com/v1/public/"
+    
+    var characters: String {
+        return base + "characters"
     }
 }
 

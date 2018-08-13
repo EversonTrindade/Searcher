@@ -18,10 +18,11 @@ class HomeInteractor: HomePresenterToInteractorProtocol {
     
     func fetchData() {
     
-        var urlComponents = URLComponents(string: BaseAPI().something)
-        let firstParam = URLQueryItem(name: "", value: "")
-        let secondParam = URLQueryItem(name: "", value: "")
-        urlComponents?.queryItems = [firstParam, secondParam]
+        var urlComponents = URLComponents(string: BaseAPI().characters)
+        let apiKey = URLQueryItem(name: "apikey", value: BaseAPI().apiKey)
+        let timeStamp = URLQueryItem(name: "ts", value:"\(Date().timeIntervalSince1970 * 1000)")
+        let hash = URLQueryItem(name: "hash", value: "\(timeStamp)\(BaseAPI().privKey)\(BaseAPI().apiKey)".MD5)
+        urlComponents?.queryItems = [apiKey, timeStamp, hash]
         
         guard let url = urlComponents?.url else {
             delegate?.fail(message: ServiceError.unknown.message)
