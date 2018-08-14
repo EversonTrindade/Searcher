@@ -19,20 +19,24 @@ class HomePresenter: HomeViewToPresenterProtocol {
     }
     
     func updateView() {
-        delegate?.showLoader()
+        delegate?.showLoaderView()
         interactor.fetchData()
+    }
+    
+    func numberOfSections() -> Int {
+        return interactor.characters.count
     }
 }
 
 extension HomePresenter: HomeInteractorToPresenterProtocol {
 
-    func didFetchData(data: HomeEntity) {
-        delegate?.hideLoader()
-        delegate?.showData(data: data) //data volta pra view??????
+    func didFetchData() {
+        delegate?.hideLoaderView()
+        delegate?.didFetchData()
     }
     
     func fail(message: String?) {
-        delegate?.hideLoader()
+        delegate?.hideLoaderView()
         delegate?.fail(message: message ?? "")
     }
     

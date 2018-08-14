@@ -20,8 +20,8 @@ class Request: Requestable {
         }
         
         URLSession.shared.dataTask(with: request) { data, response, error  in
-            if let error = error {
-                completion(nil, error.localizedDescription)
+            if let _ = error {
+                completion(nil, ServiceError.unknown.message)
                 return
             }
             guard let _ = data else {

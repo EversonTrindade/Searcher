@@ -11,6 +11,7 @@ import Foundation
 class HomeInteractor: HomePresenterToInteractorProtocol {
     
     private weak var delegate: HomeInteractorToPresenterProtocol?
+    var characters = [Character]()
     
     init(_ delegate: HomeInteractorToPresenterProtocol?) {
         self.delegate = delegate
@@ -29,7 +30,9 @@ class HomeInteractor: HomePresenterToInteractorProtocol {
             return
         }
         
-        Request().getRequest(urlRequest: URLRequest(url: url)) { response, error in
+        let testUrl = URL(string: "https://api.myjson.com/bins/10bjv0")
+        
+        Request().getRequest(urlRequest: URLRequest(url: testUrl!)) { response, error in
             
             if let erro = error {
                 self.delegate?.fail(message: erro)
@@ -40,7 +43,8 @@ class HomeInteractor: HomePresenterToInteractorProtocol {
                 self.delegate?.fail(message: ServiceError.parserError.message)
                 return
             }
-            self.delegate?.didFetchData(data: dataFromService)
+            self.characters = dataFromService.data.results
+            self.delegate?.didFetchData()
         }
     }
 }

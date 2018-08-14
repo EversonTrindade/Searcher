@@ -11,21 +11,23 @@ import UIKit
 
 protocol HomeViewToPresenterProtocol: class {
     func updateView()
+    func numberOfSections() -> Int
 }
 
 protocol HomePresenterToViewProtocol: class {
-    func showLoader()
-    func hideLoader()
-    func showData(data: HomeEntity)
+    func showLoaderView()
+    func hideLoaderView()
+    func didFetchData()
     func fail(message: String)
 }
 
 protocol HomePresenterToInteractorProtocol: class {
+    var characters: [Character] { get set }
     func fetchData()
 }
 
 protocol HomeInteractorToPresenterProtocol: class {
-    func didFetchData(data: HomeEntity)
+    func didFetchData()
     func fail(message: String?)
 }
 
