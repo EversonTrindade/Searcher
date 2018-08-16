@@ -12,6 +12,8 @@ import UIKit
 protocol HomeViewToPresenterProtocol: class {
     func updateView()
     func numberOfSections() -> Int
+    func getCharacter(at index: Int) -> CharacterDTO
+    func presentNextView(with index: Int)
 }
 
 protocol HomePresenterToViewProtocol: class {
@@ -32,5 +34,5 @@ protocol HomeInteractorToPresenterProtocol: class {
 }
 
 protocol HomePresenterToRouterProtocol: class {
-    func presentNextView()
+    var navigationController: UINavigationController? { get }
 }

@@ -8,14 +8,15 @@
 
 import Foundation
 
-class HomePresenter: HomeViewToPresenterProtocol {
+class HomePresenter: HomeViewToPresenterProtocol {    
     
     private lazy var interactor: HomePresenterToInteractorProtocol = HomeInteractor(self)
-    var router: HomePresenterToRouterProtocol =  HomeRouter()
+    var router: HomeRouter?
     private weak var delegate: HomePresenterToViewProtocol?
     
-    init(_ delegate: HomePresenterToViewProtocol?) {
+    init(delegate: HomePresenterToViewProtocol?, routerProtocol: HomePresenterToRouterProtocol?) {
         self.delegate = delegate
+        router = HomeRouter(view: routerProtocol!)
     }
     
     func updateView() {
@@ -25,6 +26,21 @@ class HomePresenter: HomeViewToPresenterProtocol {
     
     func numberOfSections() -> Int {
         return interactor.characters.count
+    }
+    
+    func getCharacter(at index: Int) -> CharacterDTO {
+        guard let dto = interactor.characters.object(index: index) else {
+            return CharacterDTO()
+        }
+        return CharacterDTO(id: dto.id, image: dto.thumbnail.file, name: dto.name)
+    }
+    
+    func presentNextView(with index: Int) {
+        if let dto = interactor.characters.object(index: index) {
+            router?.presentDetailView(characterDTO: CharacterDTO(id: dto.id,
+                                                                image: dto.thumbnail.file,
+                                                                name: dto.name))
+        }
     }
 }
 

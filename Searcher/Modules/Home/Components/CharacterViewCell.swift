@@ -8,6 +8,19 @@
 
 import UIKit
 
+struct CharacterDTO {
+    var id = 0
+    var image = ""
+    var name = ""
+//    var imageFile
+}
+
 class CharacterViewCell: UICollectionViewCell {
+    @IBOutlet weak var characterImage: UIImageView!
+    @IBOutlet weak var characterNameLbl: UILabel!
+    
+    func fillCell(dto: CharacterDTO) {
+        characterNameLbl.text = dto.name
+    }
     
 }

@@ -8,9 +8,13 @@
 
 import UIKit
 
-class DetailView: UIViewController {
+class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func fill(characterDTO: CharacterDTO) {
+        print(characterDTO)
     }
 }
