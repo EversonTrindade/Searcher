@@ -13,6 +13,7 @@ enum ServiceError {
     case noInternet
     case noData
     case parserError
+    case url
     
     var message: String {
         switch self {
@@ -24,6 +25,8 @@ enum ServiceError {
             return "No data from server" //Improve
         case .parserError:
             return "parserError" // Improve
+        case .url:
+            return "Wrong url"
         }
     }
 }

@@ -8,20 +8,33 @@
 
 import Foundation
 
-class HomePresenter: HomeViewToPresenterProtocol {    
+class HomePresenter: HomeViewToPresenterProtocol {
     
     private lazy var interactor: HomePresenterToInteractorProtocol = HomeInteractor(self)
     var router: HomeRouter?
     private weak var delegate: HomePresenterToViewProtocol?
+    private var offset = 0
+    var canLoad = true
+
     
     init(delegate: HomePresenterToViewProtocol?, routerProtocol: HomePresenterToRouterProtocol?) {
         self.delegate = delegate
         router = HomeRouter(view: routerProtocol!)
     }
     
+    func updateFetchedData() {
+        if canLoad {
+            offset += 1
+            canLoad = false
+            delegate?.showLoaderView()
+            interactor.fetchData(offset: offset)
+        }
+    }
+    
     func updateView() {
         delegate?.showLoaderView()
-        interactor.fetchData()
+        canLoad = false
+        interactor.fetchData(offset: 0)
     }
     
     func numberOfSections() -> Int {
@@ -47,11 +60,13 @@ class HomePresenter: HomeViewToPresenterProtocol {
 extension HomePresenter: HomeInteractorToPresenterProtocol {
 
     func didFetchData() {
+        canLoad = true
         delegate?.hideLoaderView()
         delegate?.didFetchData()
     }
     
     func fail(message: String?) {
+        canLoad = true
         delegate?.hideLoaderView()
         delegate?.fail(message: message ?? "")
     }

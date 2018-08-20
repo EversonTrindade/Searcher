@@ -10,10 +10,12 @@ import Foundation
 import UIKit
 
 protocol HomeViewToPresenterProtocol: class {
+    var canLoad: Bool { get set }
     func updateView()
     func numberOfSections() -> Int
     func getCharacter(at index: Int) -> CharacterDTO
     func presentNextView(with index: Int)
+    func updateFetchedData()
 }
 
 protocol HomePresenterToViewProtocol: class {
@@ -25,7 +27,7 @@ protocol HomePresenterToViewProtocol: class {
 
 protocol HomePresenterToInteractorProtocol: class {
     var characters: [Character] { get set }
-    func fetchData()
+    func fetchData(offset: Int)
 }
 
 protocol HomeInteractorToPresenterProtocol: class {

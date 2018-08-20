@@ -31,6 +31,7 @@
 		4067F350212521EB00A91437 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4067F34F212521EB00A91437 /* Array+Extension.swift */; };
 		4067F352212530DB00A91437 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4067F351212530DB00A91437 /* DetailRouter.swift */; };
 		4067F3542125311D00A91437 /* DetailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4067F3532125311D00A91437 /* DetailProtocol.swift */; };
+		40F8ABA6212A508000AB58CA /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F8ABA5212A508000AB58CA /* Manager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		4067F34F212521EB00A91437 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		4067F351212530DB00A91437 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		4067F3532125311D00A91437 /* DetailProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProtocol.swift; sourceTree = "<group>"; };
+		40F8ABA5212A508000AB58CA /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 			children = (
 				4028D4A321116EF40061DD71 /* BaseAPI.swift */,
 				4034CF5D2119378300D4736B /* Request.swift */,
+				40F8ABA5212A508000AB58CA /* Manager.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				4028D49F2111536A0061DD71 /* HomeProtocol.swift in Sources */,
 				4028D497211152EE0061DD71 /* HomePresenter.swift in Sources */,
 				4028D49D2111535C0061DD71 /* HomeRouter.swift in Sources */,
+				40F8ABA6212A508000AB58CA /* Manager.swift in Sources */,
 				4034CF5E2119378300D4736B /* Request.swift in Sources */,
 				4067F350212521EB00A91437 /* Array+Extension.swift in Sources */,
 				4067F33E2121303800A91437 /* String+Extension.swift in Sources */,

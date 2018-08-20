@@ -65,6 +65,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CharacterViewCell.self), for: indexPath) as? CharacterViewCell else {
             return UICollectionViewCell()
         }
+        
+        if indexPath.row == presenter.numberOfSections() - 1 && presenter.canLoad {
+            presenter.updateFetchedData()
+        }
+        
         cell.fillCell(dto: presenter.getCharacter(at: indexPath.row))
         return cell
     }

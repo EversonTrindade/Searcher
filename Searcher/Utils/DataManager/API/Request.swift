@@ -10,16 +10,28 @@ import Foundation
 
 class Request: Requestable {
     
-    func getRequest(urlRequest: URLRequest?, completion: @escaping (_ result: Data?, _ error: String?) -> Void) {
-        
-        var urlRequest = urlRequest
-        urlRequest?.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        guard let request = urlRequest else {
+    var limit: Int?
+    var offset: Int?
+    
+    init(limit: Int, offset: Int) {
+        self.limit = limit
+        self.offset = offset
+    }
+    
+    func request(callKind: MarvelKind, httpMethod: String, completion: @escaping (Data?, String?) -> Void) {
+        var urlComponents = URLComponents(string: "\(BaseAPI().base)\(callKind)")
+        urlComponents?.queryItems = DefaultParams().getQueryParams(offsetValue: "\(offset ?? 0)", limitValue: "\(limit ?? 0)")
+        guard let url = urlComponents?.url else {
+            completion(nil, ServiceError.url.message)
             return
         }
-        
-        URLSession.shared.dataTask(with: request) { data, response, error  in
+
+        var urlRequest = URLRequest(url: url)
+        urlRequest.url = url
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpMethod = httpMethod
+
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error  in
             if let _ = error {
                 completion(nil, ServiceError.unknown.message)
                 return
@@ -32,5 +44,4 @@ class Request: Requestable {
             completion(data, nil)
         }.resume()
     }
-
 }
