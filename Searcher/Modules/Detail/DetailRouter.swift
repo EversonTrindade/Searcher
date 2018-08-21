@@ -9,7 +9,5 @@
 import UIKit
 
 class DetailRouter {
-    func createDetailModule() -> UIViewController {
-        return UIStoryboard(name: "Detail", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController")
-    }
+    
 }

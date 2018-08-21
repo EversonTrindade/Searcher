@@ -16,5 +16,6 @@ class DetailViewController: UIViewController {
     
     func fill(characterDTO: CharacterDTO) {
         print(characterDTO)
+        navigationItem.title = characterDTO.name
     }
 }

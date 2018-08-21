@@ -18,11 +18,10 @@ class HomeRouter {
     }
     
     func presentDetailView(characterDTO: CharacterDTO) {
-        if let detailViewController = DetailRouter().createDetailModule() as? DetailViewController {
-            detailViewController.fill(characterDTO: characterDTO)
-            if let navigation = view.navigationController {
-                navigation.pushViewController(detailViewController, animated: true)
-            }
+        guard let detailView = UIStoryboard(name: "Detail", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else {
+            return
         }
+        detailView.fill(characterDTO: characterDTO)
+        view.navigationController?.pushViewController(detailView, animated: true)
     }
 }
