@@ -22,16 +22,23 @@ extension UIViewController {
     
     func showLoader() {
         DispatchQueue.main.async {
-            let loader = UIActivityIndicatorView(activityIndicatorStyle: .white)
-            loader.center = UIApplication.shared.keyWindow?.center ?? CGPoint()
-            loader.startAnimating()
-            UIApplication.shared.keyWindow?.addSubview(loader)
+            let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+            effectView.frame = CGRect.init(x: 0, y: 0, width: 70, height: 70)
+            effectView.center = UIApplication.shared.keyWindow?.center ?? CGPoint()
+            effectView.layer.cornerRadius = 8
+            effectView.clipsToBounds = true
+            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+            activityIndicator.frame = CGRect.init(x: 0, y: 0, width: 50, height: 50)
+            activityIndicator.startAnimating()
+            effectView.contentView.addSubview(activityIndicator)
+            activityIndicator.center = effectView.contentView.center
+            UIApplication.shared.keyWindow?.addSubview(effectView)
         }
     }
     
     func dismissLoader() {
         DispatchQueue.main.async {
-            if let loader = UIApplication.shared.keyWindow?.subviews.filter({ $0 is UIActivityIndicatorView }).first as? UIActivityIndicatorView {
+            if let loader = UIApplication.shared.keyWindow?.subviews.filter({ $0 is UIVisualEffectView }).first as? UIVisualEffectView {
                 loader.removeFromSuperview()
             }
         }
