@@ -10,8 +10,9 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    private lazy var presenter: HomeViewToPresenterProtocol = HomePresenter(delegate: self, routerProtocol: self)
     @IBOutlet weak var collectionView: UICollectionView!
+
+    private lazy var presenter: HomeViewToPresenterProtocol = HomePresenter(delegate: self, routerProtocol: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
