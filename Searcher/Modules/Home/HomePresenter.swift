@@ -15,7 +15,6 @@ class HomePresenter: HomeViewToPresenterProtocol {
     private weak var delegate: HomePresenterToViewProtocol?
     private var offset = 0
     var canLoad = true
-
     
     init(delegate: HomePresenterToViewProtocol?, routerProtocol: HomePresenterToRouterProtocol?) {
         self.delegate = delegate
@@ -45,13 +44,15 @@ class HomePresenter: HomeViewToPresenterProtocol {
         guard let dto = interactor.characters.object(index: index) else {
             return CharacterDTO()
         }
-        return CharacterDTO(id: dto.id, image: dto.thumbnail.file, name: dto.name)
+        return CharacterDTO(id: dto.id,
+                            image: interactor.getImageFrom(url: dto.thumbnail.file, identifier: dto.id),
+                            name: dto.name)
     }
     
     func presentNextView(with index: Int) {
         if let dto = interactor.characters.object(index: index) {
             router?.presentDetailView(characterDTO: CharacterDTO(id: dto.id,
-                                                                image: dto.thumbnail.file,
+                                                                image: interactor.getImageFromCache(with: dto.id),
                                                                 name: dto.name))
         }
     }
@@ -71,4 +72,7 @@ extension HomePresenter: HomeInteractorToPresenterProtocol {
         delegate?.fail(message: message ?? "")
     }
     
+    func didLoadImage(identifier: Int) {
+        delegate?.didLoadImage(image: interactor.getImageFromCache(with: identifier), identifier: identifier)
+    }
 }

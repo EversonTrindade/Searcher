@@ -21,7 +21,7 @@ class HomeRouter {
         guard let detailView = UIStoryboard(name: "Detail", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else {
             return
         }
-        detailView.fill(characterDTO: characterDTO)
+        detailView.fill(dto: characterDTO)
         view.navigationController?.pushViewController(detailView, animated: true)
     }
 }

@@ -9,13 +9,14 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
+    
+    @IBOutlet weak var characterImg: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    func fill(characterDTO: CharacterDTO) {
-        print(characterDTO)
-        navigationItem.title = characterDTO.name
+    func fill(dto: CharacterDTO) {
+        navigationItem.title = dto.name
     }
 }

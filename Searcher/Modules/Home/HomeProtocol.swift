@@ -23,16 +23,20 @@ protocol HomePresenterToViewProtocol: class {
     func hideLoaderView()
     func didFetchData()
     func fail(message: String)
+    func didLoadImage(image: UIImage, identifier: Int)
 }
 
 protocol HomePresenterToInteractorProtocol: class {
     var characters: [Character] { get set }
     func fetchData(offset: Int)
+    func getImageFrom(url: String, identifier: Int) -> UIImage
+    func getImageFromCache(with identifier: Int) -> UIImage
 }
 
 protocol HomeInteractorToPresenterProtocol: class {
     func didFetchData()
     func fail(message: String?)
+    func didLoadImage(identifier: Int)
 }
 
 protocol HomePresenterToRouterProtocol: class {

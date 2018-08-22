@@ -45,6 +45,19 @@ extension HomeViewController: HomePresenterToViewProtocol {
     func fail(message: String) {
         self.showAlert(message: message, completeBlock: nil)
     }
+    
+    func didLoadImage(image: UIImage, identifier: Int) {
+        DispatchQueue.main.async {
+            guard let collection = self.collectionView else {
+                return
+            }
+            for cell in collection.visibleCells {
+                if let characterCell = cell as? CharacterViewCell, characterCell.identifier == identifier {
+                    characterCell.setImage(with: image)
+                }
+            }
+        }
+    }
 }
 
 extension HomeViewController: HomePresenterToRouterProtocol {
@@ -72,6 +85,12 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         cell.fillCell(dto: presenter.getCharacter(at: indexPath.row))
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let characterCell = cell as? CharacterViewCell {
+            characterCell.fillCell(dto: presenter.getCharacter(at: indexPath.row))
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

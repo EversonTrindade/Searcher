@@ -33,14 +33,23 @@
                     <view key="view" contentMode="scaleToFill" id="pab-Uw-pKk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ved-B7-yw5">
+                                <rect key="frame" x="67" y="64" width="240" height="230"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="vFx-iV-tbK"/>
                     </view>
                     <navigationItem key="navigationItem" id="L7K-cW-b5W"/>
+                    <connections>
+                        <outlet property="characterImg" destination="Ved-B7-yw5" id="NNJ-gn-T73"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="93b-rL-p4U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1001" y="5"/>
+            <point key="canvasLocation" x="-1002.4" y="4.9475262368815596"/>
         </scene>
     </scenes>
 </document>

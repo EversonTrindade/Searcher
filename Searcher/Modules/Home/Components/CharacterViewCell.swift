@@ -10,17 +10,24 @@ import UIKit
 
 struct CharacterDTO {
     var id = 0
-    var image = ""
+    var image = UIImage()
     var name = ""
-//    var imageFile
 }
 
 class CharacterViewCell: UICollectionViewCell {
     @IBOutlet weak var characterImage: UIImageView!
     @IBOutlet weak var characterNameLbl: UILabel!
+
+    var identifier = 0
     
     func fillCell(dto: CharacterDTO) {
+        identifier = dto.id
         characterNameLbl.text = dto.name
+        characterImage.image = dto.image
+        
     }
     
+    func setImage(with image: UIImage) {
+        characterImage.image = image
+    }
 }
