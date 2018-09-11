@@ -16,6 +16,7 @@ protocol HomeViewToPresenterProtocol: class {
     func getCharacter(at index: Int) -> CharacterDTO
     func presentNextView(with index: Int)
     func updateFetchedData()
+    func didFavorite(with id: Int, shouldFavorite: Bool, imageData: Data?)
 }
 
 protocol HomePresenterToViewProtocol: class {
@@ -31,6 +32,9 @@ protocol HomePresenterToInteractorProtocol: class {
     func fetchData(offset: Int)
     func getImageFrom(url: String, identifier: Int) -> UIImage
     func getImageFromCache(with identifier: Int) -> UIImage
+    func getFavorites()
+    func isFavorite(id: Int) -> Bool
+    func didFavorite(with id: Int, shouldFavorite: Bool, imageData: Data?)
 }
 
 protocol HomeInteractorToPresenterProtocol: class {
@@ -41,4 +45,8 @@ protocol HomeInteractorToPresenterProtocol: class {
 
 protocol HomePresenterToRouterProtocol: class {
     var navigationController: UINavigationController? { get }
+}
+
+protocol HomeCellDelegate: class {
+    func didFavorite(with id: Int, shouldFavorite: Bool, imageData: Data?)
 }

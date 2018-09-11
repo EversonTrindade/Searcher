@@ -38,14 +38,14 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bvO-HQ-a8d">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ydp-J2-t9L">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="ydp-J2-t9L">
                                     <size key="itemSize" width="182" height="242"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CharacterViewCell" id="gUC-vY-SgL" customClass="CharacterViewCell" customModule="Searcher" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeCell" id="gUC-vY-SgL" customClass="HomeCell" customModule="Searcher" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="182" height="232"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -71,7 +71,9 @@
                                                         <constraint firstAttribute="height" constant="45" id="07O-zs-ICo"/>
                                                         <constraint firstAttribute="width" constant="45" id="KzB-6B-oZg"/>
                                                     </constraints>
-                                                    <state key="normal" image="favorite-set-icon"/>
+                                                    <connections>
+                                                        <action selector="favoriteAction:" destination="gUC-vY-SgL" eventType="touchUpInside" id="0hx-gc-qeb"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </view>
@@ -90,8 +92,9 @@
                                         </constraints>
                                         <size key="customSize" width="182" height="232"/>
                                         <connections>
-                                            <outlet property="characterImage" destination="g0c-aC-bV7" id="pZR-b9-fnQ"/>
-                                            <outlet property="characterNameLbl" destination="Gob-di-Eki" id="Yp1-fB-hbv"/>
+                                            <outlet property="characterImg" destination="g0c-aC-bV7" id="Dby-WE-XEB"/>
+                                            <outlet property="characterNameLbl" destination="Gob-di-Eki" id="TG3-r7-dbD"/>
+                                            <outlet property="favoriteBtn" destination="xfg-dW-fgD" id="lfP-w8-dJ8"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -120,7 +123,4 @@
             <point key="canvasLocation" x="172" y="124.58770614692655"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="favorite-set-icon" width="20" height="19"/>
-    </resources>
 </document>

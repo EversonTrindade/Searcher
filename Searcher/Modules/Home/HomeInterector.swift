@@ -10,16 +10,20 @@ import Foundation
 import UIKit
 
 class HomeInteractor: HomePresenterToInteractorProtocol {
-    
+
     private weak var delegate: HomeInteractorToPresenterProtocol?
     var characters = [Character]()
     private let limit = 20
     private var cache = NSCache<NSString, UIImage>()
-    
-    
+    private var favorites = [Character]()
+
     init(_ delegate: HomeInteractorToPresenterProtocol?) {
         self.delegate = delegate
     }
+}
+
+// MARK: - FetchData
+extension HomeInteractor {
     
     func fetchData(offset: Int) {
         Request(limit: limit, offset: offset * limit).request(callKind: MarvelKind.characters, httpMethod: HTTP.get.method) { response, error in
@@ -27,7 +31,7 @@ class HomeInteractor: HomePresenterToInteractorProtocol {
                 self.delegate?.fail(message: erro)
                 return
             }
-
+            
             guard let dataFromService = try? JSONDecoder().decode(HomeEntity.self, from: response ?? Data()) else {
                 self.delegate?.fail(message: ServiceError.parserError.message)
                 return
@@ -36,6 +40,10 @@ class HomeInteractor: HomePresenterToInteractorProtocol {
             self.delegate?.didFetchData()
         }
     }
+}
+
+// MARK: - Image Cache
+extension HomeInteractor {
     
     func getImageFrom(url: String, identifier: Int) -> UIImage {
         
@@ -52,7 +60,7 @@ class HomeInteractor: HomePresenterToInteractorProtocol {
                         self.delegate?.didLoadImage(identifier: identifier)
                     }
                 }
-            }.resume()
+                }.resume()
         }
         return UIImage()
     }
@@ -62,5 +70,21 @@ class HomeInteractor: HomePresenterToInteractorProtocol {
             return imageCached
         }
         return UIImage()
+    }
+}
+
+// MARK: - Favorite
+extension HomeInteractor {
+    
+    func getFavorites() {
+        favorites = FavoriteManager().loadCharacters()
+    }
+    
+    func isFavorite(id: Int) -> Bool {
+        return favorites.filter { $0.id == id }.count > 0
+    }
+    
+    func didFavorite(with id: Int, shouldFavorite: Bool, imageData: Data?) {
+        
     }
 }

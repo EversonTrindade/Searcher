@@ -53,7 +53,7 @@ extension HomeViewController: HomePresenterToViewProtocol {
                 return
             }
             for cell in collection.visibleCells {
-                if let characterCell = cell as? CharacterViewCell, characterCell.identifier == identifier {
+                if let characterCell = cell as? HomeCell, characterCell.identifier == identifier {
                     characterCell.setImage(with: image)
                 }
             }
@@ -65,7 +65,7 @@ extension HomeViewController: HomePresenterToRouterProtocol {
     
 }
 
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -76,7 +76,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CharacterViewCell.self), for: indexPath) as? CharacterViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomeCell.self), for: indexPath) as? HomeCell else {
             return UICollectionViewCell()
         }
         
@@ -89,7 +89,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let characterCell = cell as? CharacterViewCell {
+        if let characterCell = cell as? HomeCell {
             characterCell.fillCell(dto: presenter.getCharacter(at: indexPath.row))
         }
     }
@@ -98,12 +98,23 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         presenter.presentNextView(with: indexPath.row)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.size.width / 2) - 12, height: (view.frame.size.height / 2) - 12)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5.0
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 8.0
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(5.0, 2.0, 5.0, 2.0)
+    }
+}
+
+extension HomeViewController: HomeCellDelegate {
+    
+    func didFavorite(with id: Int, shouldFavorite: Bool, imageData: Data?) {
+        presenter.didFavorite(with: id, shouldFavorite: shouldFavorite, imageData: imageData)
     }
 }
 

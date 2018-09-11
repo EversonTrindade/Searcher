@@ -44,17 +44,21 @@ class HomePresenter: HomeViewToPresenterProtocol {
         guard let dto = interactor.characters.object(index: index) else {
             return CharacterDTO()
         }
-        return CharacterDTO(id: dto.id,
-                            image: interactor.getImageFrom(url: dto.thumbnail.file, identifier: dto.id),
-                            name: dto.name)
+        return CharacterDTO(id: dto.id ?? 0,
+                            image: interactor.getImageFrom(url: dto.thumbnail!.file, identifier: dto.id ?? 0),
+                            name: dto.name ?? "")
     }
     
     func presentNextView(with index: Int) {
         if let dto = interactor.characters.object(index: index) {
-            router?.presentDetailView(characterDTO: CharacterDTO(id: dto.id,
-                                                                image: interactor.getImageFromCache(with: dto.id),
-                                                                name: dto.name))
+            router?.presentDetailView(characterDTO: CharacterDTO(id: dto.id ?? 0,
+                                                                image: interactor.getImageFromCache(with: dto.id ?? 0),
+                                                                name: dto.name ?? ""))
         }
+    }
+    
+    func didFavorite(with id: Int, shouldFavorite: Bool, imageData: Data?) {
+        
     }
 }
 
