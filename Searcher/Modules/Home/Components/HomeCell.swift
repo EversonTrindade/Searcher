@@ -12,6 +12,7 @@ struct CharacterDTO {
     var id = 0
     var image = UIImage()
     var name = ""
+    var isFavorite = false
 }
 
 class HomeCell: UICollectionViewCell {
@@ -27,6 +28,7 @@ class HomeCell: UICollectionViewCell {
         identifier = dto.id
         characterNameLbl.text = dto.name
         characterImg.image = dto.image
+        setFavoriteImage(favorite: dto.isFavorite)
     }
     
     func setImage(with image: UIImage) {

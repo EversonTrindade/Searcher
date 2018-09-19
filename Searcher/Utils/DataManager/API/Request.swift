@@ -1,4 +1,4 @@
-//
+
 //  Request.swift
 //  Searcher
 //
@@ -28,6 +28,7 @@ class Request: Requestable {
 
         var urlRequest = URLRequest(url: url)
         urlRequest.url = url
+//        urlRequest.url = URL(string: "https://api.myjson.com/bins/10bjv0")
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = httpMethod
 

@@ -37,6 +37,7 @@ extension HomeInteractor {
                 return
             }
             self.characters.append(contentsOf: dataFromService.data.results)
+            self.getFavorites()
             self.delegate?.didFetchData()
         }
     }
@@ -75,7 +76,7 @@ extension HomeInteractor {
 
 // MARK: - Favorite
 extension HomeInteractor {
-    
+
     func getFavorites() {
         favorites = FavoriteManager().loadCharacters()
     }
@@ -85,6 +86,18 @@ extension HomeInteractor {
     }
     
     func didFavorite(with id: Int, shouldFavorite: Bool, imageData: Data?) {
+        let array = characters.filter{ id == $0.id }
+        guard let character = array.first else {
+            return
+        }
+
+        var favorite = character
+        favorite.imageData = imageData ?? Data().base64EncodedData()
         
+        if shouldFavorite {
+            FavoriteManager().save(favoriteCharacter: favorite)
+        } else {
+            FavoriteManager().remove(character: favorite)
+        }
     }
 }

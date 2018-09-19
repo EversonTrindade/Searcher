@@ -83,7 +83,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if indexPath.row == presenter.numberOfSections() - 1 && presenter.canLoad {
             presenter.updateFetchedData()
         }
-        
+        cell.delegate = self
         cell.fillCell(dto: presenter.getCharacter(at: indexPath.row))
         return cell
     }
